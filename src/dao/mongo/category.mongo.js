@@ -3,12 +3,24 @@ import CategoryModel from '../models/category.model.js';
 export default class CategoryMongo {
     constructor() { }
 
+    // Obtener todas o filtrar categorías → Retorna ARRAY
     get = async (filter = {}) => {
         try {
-            const categories = await CategoryModel.find(filter).lean()
+            const categories = await CategoryModel.find(filter).lean();
             return categories;
         } catch (error) {
             console.error(`Error al recuperar las categorías: ${error.message}`);
+            return null;
+        }
+    }
+
+    // Obtener UNA categoría por ID → Retorna OBJETO o NULL
+    getById = async (id) => {
+        try {
+            const category = await CategoryModel.findById(id).lean();
+            return category;
+        } catch (error) {
+            console.error(`Error al recuperar la categoría: ${error.message}`);
             return null;
         }
     }
@@ -23,25 +35,29 @@ export default class CategoryMongo {
         }
     }
 
+    update = async (id, categoryData) => {
+        try {
+            if (!id) {
+                throw new Error('ID de categoría no proporcionado');
+            }
+            const category = await CategoryModel.findByIdAndUpdate(
+                id,
+                categoryData,
+                { new: true }
+            );
+            return category;
+        } catch (error) {
+            console.error(`Error al actualizar la categoría: ${error.message}`);
+            return null;
+        }
+    }
+
     delete = async (id) => {
         try {
             const category = await CategoryModel.findByIdAndDelete(id);
             return category;
         } catch (error) {
             console.error(`Error al eliminar la categoría: ${error.message}`);
-            return null;
-        }
-    }
-
-    update = async (id, categoryData) => {
-        try {
-            if (!id) {
-                throw new Error('ID de categoría no proporcionado');
-            }
-            const category = await CategoryModel.findByIdAndUpdate(id, categoryData, { new: true });
-            return category;
-        } catch (error) {
-            console.error(`Error al actualizar la categoría: ${error.message}`);
             return null;
         }
     }
