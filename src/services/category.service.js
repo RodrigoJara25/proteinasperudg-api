@@ -8,7 +8,7 @@ export default class CategoryService {
     // Obtener todas las categorias
     async getAllCategories() {
         try {
-            const categories = await categoryDao.get();
+            const categories = await categoryDao.get(); // ✅ Retorna array
             return categories.map(category => new CategoryDTO(category));
         } catch (error) {
             throw error;
@@ -19,8 +19,13 @@ export default class CategoryService {
     async getCategoryById(id) {
         try {
             if (!id) throw new Error("ID es requerido");
-            const category = await categoryDao.get({ _id: id });
-            if (!category) throw new Error("Categoria no encontrada");
+
+            const category = await categoryDao.getById(id);
+
+            if (!category) {
+                throw new Error("Categoría no encontrada");
+            }
+
             return new CategoryDTO(category);
         } catch (error) {
             throw error;
@@ -31,11 +36,9 @@ export default class CategoryService {
     async createCategory(categoryData) {
         try {
             const newCategory = await categoryDao.create(categoryData);
-
             if (!newCategory) {
                 throw new Error('Error al crear la categoría');
             }
-
             return new CategoryDTO(newCategory);
         } catch (error) {
             throw error;
@@ -43,9 +46,16 @@ export default class CategoryService {
     }
 
     // Actualizar categoria
-    async updateCategory(id, category) {
+    async updateCategory(id, categoryData) {
         try {
-            const updatedCategory = await categoryDao.update(id, category);
+            if (!id) {
+                throw new Error('ID es requerido');
+            }
+            const updatedCategory = await categoryDao.update(id, categoryData);
+
+            if (!updatedCategory) {
+                throw new Error('Categoría no encontrada');
+            }
             return new CategoryDTO(updatedCategory);
         } catch (error) {
             throw error;
@@ -58,12 +68,11 @@ export default class CategoryService {
             if (!id) {
                 throw new Error('ID es requerido');
             }
-            const deletedCategory = await categoryDao.delete(id);
 
+            const deletedCategory = await categoryDao.delete(id);
             if (!deletedCategory) {
                 throw new Error('Categoría no encontrada');
             }
-
             return new CategoryDTO(deletedCategory);
         } catch (error) {
             throw error;
