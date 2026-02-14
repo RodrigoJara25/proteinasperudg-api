@@ -80,8 +80,17 @@ const productSchema = new mongoose.Schema({
 // Índice para búsquedas más rápidas por categoría
 productSchema.index({ categoria: 1 });
 
+// Índice para búsquedas más rápidas por marca
+productSchema.index({ marca: 1 });
+
 // Índice para búsquedas por nombre
 productSchema.index({ name: 'text' });
+
+// Índice compuesto para ordenar por precio
+productSchema.index({ precio: 1 });
+
+// Índice para productos activos
+productSchema.index({ isActive: 1 });
 
 const Product = mongoose.model(collection, productSchema);
 
