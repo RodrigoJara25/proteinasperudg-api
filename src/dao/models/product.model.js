@@ -78,7 +78,7 @@ const productSchema = new mongoose.Schema({
 });
 
 // Índice para búsquedas más rápidas por categoría
-productSchema.index({ category: 1 });
+productSchema.index({ categoria: 1 });
 
 // Índice para búsquedas por nombre
 productSchema.index({ name: 'text' });
