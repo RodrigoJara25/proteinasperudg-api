@@ -4,6 +4,7 @@ import cors from "cors";
 import categoryRoutes from "./src/routes/category.routes.js";
 import productRoutes from "./src/routes/product.routes.js";
 import brandRoutes from "./src/routes/brand.routes.js";
+import promotionRoutes from "./src/routes/promotion.routes.js";
 
 import { errorHandler } from "./src/middlewares/errorHandler.js";
 
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use("/api/categories", categoryRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/brands", brandRoutes);
+app.use("/api/promotions", promotionRoutes);
 
 // Error handler
 app.use(errorHandler);
