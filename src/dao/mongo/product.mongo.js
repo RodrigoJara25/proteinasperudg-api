@@ -3,7 +3,7 @@ import ProductModel from '../models/product.model.js';
 export default class ProductMongo {
     constructor() { }
 
-    // Obtener todos o filtrar productos => Retorna ARRAY
+    // Obtener todos o filtrar productos con FILTROS DINÁMICOS => Retorna ARRAY
     get = async (filter = {}) => {
         try {
             const products = await ProductModel
@@ -78,7 +78,7 @@ export default class ProductMongo {
         }
     }
 
-    // Búsqueda de texto usando el índice de texto
+    // Búsqueda de texto usando el índice de texto (OPCIONAL - para búsquedas avanzadas)
     searchByText = async (query) => {
         try {
             const products = await ProductModel
