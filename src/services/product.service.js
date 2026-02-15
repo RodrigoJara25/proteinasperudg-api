@@ -5,7 +5,7 @@ const productDao = new ProductMongo();
 
 export default class ProductService {
 
-    // Obtener todos los productos o filtrar
+    // Obtener todos los productos con filtros dinámicos
     async getAllProducts(filters = {}) {
         try {
             const products = await productDao.get(filters);
@@ -27,30 +27,6 @@ export default class ProductService {
             }
 
             return new ProductDTO(product);
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    // Obtener productos por categoría
-    async getProductsByCategory(categoryId) {
-        try {
-            if (!categoryId) throw new Error("ID de categoría es requerido");
-
-            const products = await productDao.getByCategory(categoryId);
-            return products.map(product => new ProductDTO(product));
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    // Obtener productos por marca
-    async getProductsByMarca(marca) {
-        try {
-            if (!marca) throw new Error("Marca es requerida");
-
-            const products = await productDao.getByMarca(marca);
-            return products.map(product => new ProductDTO(product));
         } catch (error) {
             throw error;
         }

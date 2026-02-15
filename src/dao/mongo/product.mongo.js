@@ -78,30 +78,19 @@ export default class ProductMongo {
         }
     }
 
-    // Obtener productos por categoría => Retorna ARRAY
-    getByCategory = async (categoryId) => {
+    // Búsqueda de texto usando el índice de texto
+    searchByText = async (query) => {
         try {
             const products = await ProductModel
-                .find({ categoria: categoryId })
+                .find({
+                    $text: { $search: query },
+                    isActive: true
+                })
                 .populate('categoria', 'name description')
                 .lean();
             return products;
         } catch (error) {
-            console.error(`Error al recuperar productos por categoría: ${error.message}`);
-            return null;
-        }
-    }
-
-    // Obtener productos por marca => Retorna ARRAY
-    getByMarca = async (marca) => {
-        try {
-            const products = await ProductModel
-                .find({ marca: marca })
-                .populate('categoria', 'name description')
-                .lean();
-            return products;
-        } catch (error) {
-            console.error(`Error al recuperar productos por marca: ${error.message}`);
+            console.error(`Error en búsqueda de texto: ${error.message}`);
             return null;
         }
     }
