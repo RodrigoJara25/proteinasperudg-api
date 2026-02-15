@@ -2,7 +2,7 @@ import ProductService from "../services/product.service.js";
 
 const productService = new ProductService();
 
-// Obtener todos los productos (con filtros opcionales)
+// Obtener todos los productos (con filtros dinámicos)
 export const getAllProducts = async (req, res, next) => {
     try {
         const { categoria, marca, precioMin, precioMax, search, activos } = req.query;
