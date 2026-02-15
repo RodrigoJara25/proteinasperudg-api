@@ -10,14 +10,14 @@ export const getAllProducts = async (req, res, next) => {
         // Construir filtros dinámicamente
         const filters = {};
 
-        // Filtro por categoría
+        // Filtro por categoría (ObjectId)
         if (categoria) {
             filters.categoria = categoria;
         }
 
-        // Filtro por marca
+        // Filtro por marca (ObjectId) - Ahora usa ID en lugar de nombre
         if (marca) {
-            filters.marca = marca;
+            filters.marca = marca;  // ← Ahora espera ID de marca
         }
 
         // Filtro por precio mínimo (usando precioDesde)
