@@ -19,9 +19,9 @@ const productSchema = new mongoose.Schema({
         required: [true, 'La categoría es obligatoria']
     },
     marca: {
-        type: String,
-        required: [true, 'La marca es obligatoria'],
-        trim: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'brands',
+        required: [true, 'La marca es obligatoria']
     },
     precioDesde: {
         type: Number,

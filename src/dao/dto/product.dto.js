@@ -8,7 +8,12 @@ export default class ProductDTO {
             name: product.categoria.name,
             description: product.categoria.description
         } : null;
-        this.marca = product.marca;
+
+        this.marca = product.marca ? {
+            id: product.marca._id || product.marca,
+            marca: product.marca.marca  // Solo el nombre de la marca
+        } : null;
+
         this.precioDesde = product.precioDesde;
         this.presentaciones = product.presentaciones;
         this.sabores = product.sabores;

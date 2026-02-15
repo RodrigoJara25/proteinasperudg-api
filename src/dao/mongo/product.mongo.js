@@ -8,7 +8,8 @@ export default class ProductMongo {
         try {
             const products = await ProductModel
                 .find(filter)
-                .populate('categoria', 'name description') // ← Trae name y description de categoria
+                .populate('categoria', 'name description')
+                .populate('marca', 'marca')  // ← SOLO el campo "marca"
                 .lean();
             return products;
         } catch (error) {
@@ -22,7 +23,8 @@ export default class ProductMongo {
         try {
             const product = await ProductModel
                 .findById(id)
-                .populate('categoria', 'name description') // ← Rellena la categoría
+                .populate('categoria', 'name description')
+                .populate('marca', 'marca')  // ← SOLO el campo "marca"
                 .lean();
             return product;
         } catch (error) {
@@ -35,10 +37,11 @@ export default class ProductMongo {
     create = async (productData) => {
         try {
             const product = await ProductModel.create(productData);
-            // Poblar la categoría después de crear
+            // Poblar la categoría y marca después de crear
             const populatedProduct = await ProductModel
                 .findById(product._id)
                 .populate('categoria', 'name description')
+                .populate('marca', 'marca')  // ← SOLO el campo "marca"
                 .lean();
             return populatedProduct;
         } catch (error) {
@@ -57,7 +60,9 @@ export default class ProductMongo {
                 id,
                 productData,
                 { new: true, runValidators: true }
-            ).populate('categoria', 'name description');
+            )
+                .populate('categoria', 'name description')
+                .populate('marca', 'marca');  // ← SOLO el campo "marca"
             return product;
         } catch (error) {
             console.error(`Error al actualizar producto: ${error.message}`);
@@ -70,7 +75,8 @@ export default class ProductMongo {
         try {
             const product = await ProductModel
                 .findByIdAndDelete(id)
-                .populate('categoria', 'name description');
+                .populate('categoria', 'name description')
+                .populate('marca', 'marca');  // ← SOLO el campo "marca"
             return product;
         } catch (error) {
             console.error(`Error al eliminar producto: ${error.message}`);
@@ -87,6 +93,7 @@ export default class ProductMongo {
                     isActive: true
                 })
                 .populate('categoria', 'name description')
+                .populate('marca', 'marca')  // ← SOLO el campo "marca"
                 .lean();
             return products;
         } catch (error) {
