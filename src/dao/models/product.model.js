@@ -23,16 +23,28 @@ const productSchema = new mongoose.Schema({
         required: [true, 'La marca es obligatoria'],
         trim: true
     },
-    precio: {
+    precioDesde: {
         type: Number,
-        required: [true, 'El precio es obligatorio'],
+        required: [true, 'El precio base es obligatorio'],
         min: [0, 'El precio no puede ser negativo']
     },
-    precioOferta: {
-        type: Number,
-        default: null,
-        min: [0, 'El precio de oferta no puede ser negativo']
-    },
+    presentaciones: [{
+        peso: {
+            type: String,
+            required: [true, 'El nombre de la presentación es obligatorio'],
+            trim: true
+        },
+        precio: {
+            type: Number,
+            required: [true, 'El precio es obligatorio'],
+            min: [0, 'El precio no puede ser negativo']
+        },
+        precioOferta: {
+            type: Number,
+            default: null,
+            min: [0, 'El precio de oferta no puede ser negativo']
+        }
+    }],
     images: {
         type: [String],
         default: [],
@@ -42,11 +54,6 @@ const productSchema = new mongoose.Schema({
             },
             message: 'Debe tener al menos una imagen'
         }
-    },
-    presentaciones: {
-        type: [String],
-        default: [],
-        // Ejemplos: ["1kg", "2kg", "5lb", "2.5lb"]
     },
     sabores: {
         type: [String],

@@ -9,11 +9,10 @@ export default class ProductDTO {
             description: product.categoria.description
         } : null;
         this.marca = product.marca;
-        this.precio = product.precio;
-        this.precioOferta = product.precioOferta;
-        this.images = product.images;
+        this.precioDesde = product.precioDesde;
         this.presentaciones = product.presentaciones;
         this.sabores = product.sabores;
+        this.images = product.images;
         this.usoIdeal = product.usoIdeal;
         this.ingredientes = product.ingredientes;
         this.idealPara = product.idealPara;

@@ -20,14 +20,14 @@ export const getAllProducts = async (req, res, next) => {
             filters.marca = marca;
         }
 
-        // Filtro por precio mínimo
+        // Filtro por precio mínimo (usando precioDesde)
         if (precioMin) {
-            filters.precio = { ...filters.precio, $gte: Number(precioMin) };
+            filters.precioDesde = { ...filters.precioDesde, $gte: Number(precioMin) };
         }
 
-        // Filtro por precio máximo
+        // Filtro por precio máximo (usando precioDesde)
         if (precioMax) {
-            filters.precio = { ...filters.precio, $lte: Number(precioMax) };
+            filters.precioDesde = { ...filters.precioDesde, $lte: Number(precioMax) };
         }
 
         // Filtro para búsqueda por nombre (búsqueda parcial)
