@@ -31,7 +31,7 @@ const productSchema = new mongoose.Schema({
     presentaciones: [{
         peso: {
             type: String,
-            required: [true, 'El nombre de la presentación es obligatorio'],
+            required: [true, 'El peso es obligatorio'],
             trim: true
         },
         precio: {
